@@ -1,10 +1,10 @@
-/**
- * @module AdmZip
- */
 import fs from 'fs';
 import AdmZip, { IZipEntry } from 'adm-zip';
 import {RpsContext,RpsModule,rpsAction} from 'rpscript-interface';
 
+/** Welcome to Basic Module
+ * @namespace Basic 
+*/
 @RpsModule("adm-zip")
 export default class RPSAdmZip {
 
