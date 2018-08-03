@@ -1,13 +1,13 @@
 import fs from 'fs';
 import AdmZip, { IZipEntry } from 'adm-zip';
-import {RpsContext,RpsModule,rpsAction} from 'rpscript-interface';
+import {RpsContext,RpsModule,rpsAction,R} from 'rpscript-interface';
 
 /** Zipping and extracting files
  * @see {@link https://www.npmjs.com/package/adm-zip|Zip}
  * @namespace Zip
  * 
  * @example
- * rps install adm-zip
+ * rps install zip
  * 
  * 
 */
@@ -15,38 +15,49 @@ import {RpsContext,RpsModule,rpsAction} from 'rpscript-interface';
 export default class RPSAdmZip {
 
 /**
- * @function zip
+ * @function compress-files
  * @memberof Zip
  * @example
  * ;Write to a file call back.zip, compress temp folder and readme.md file
- * zip "backup.zip" "./temp/" "./readme.md"
- * @param {string} zipFile filename of the zip file
+ * compress-files "backup.zip" "./temp/" "./readme.md"
+ * @param {string} zipFile name of the zip file
  * @param {Array} entries the list of files or folders to be zipped
+ * 
  * @returns {string} the compressed filename 
+ * 
+ * @summary compress-files :: String → *... → String
  * @summary Zipping file by specifying the filename and the list of entries
  * 
  * 
 */
-  @rpsAction({verbName:'zip'})
-  async zip (ctx:RpsContext,opts:Object, zipFile:string, ...entries:string[]) : Promise<string>{
-    let z = new AdmZip();
+  @rpsAction({verbName:'compress-files'})
+  async zip (ctx:RpsContext,opts:Object, zipFile:string, ...entries:string[]) : Promise<string|Function>{
+    var that = this;
+
+    function fn (...entries) {
+      let z = new AdmZip();
     
-    entries.forEach(ent => {
-      if(this.isFolder(ent)) z.addLocalFolder(ent)
-      else z.addLocalFile(ent);
-    });
+      entries.forEach(function(ent) {
+        if(that.isFolder(ent)) z.addLocalFolder(ent)
+        else z.addLocalFile(ent);
+      });
+  
+      z.writeZip(zipFile);
 
-    z.writeZip(zipFile);
+      return zipFile;
+    }
+    
 
-    return zipFile;
+    if(entries && entries.length > 0) return R.apply(fn,entries);
+    else return fn;
   }
 
-  private isFolder(path:string) {
+  isFolder(path:string) {
     return fs.lstatSync(path).isDirectory();
   }
 
   /**
- * @function extract-zip
+ * @function extract-files
  * @memberof Zip
  * @example
  * ;Extract the zip file to the folder temp
@@ -54,10 +65,11 @@ export default class RPSAdmZip {
  * @param {string} zipFile filename of the zip file.
  * @param {string} extractTo directory to extract to.
  * @returns {string} zip file's name
- * @summary Extract a zip file.
+ * 
+ * @summary extract-zip :: (String,String) → String
  * 
 */
-  @rpsAction({verbName:'extract-zip'})
+  @rpsAction({verbName:'extract-files'})
   async extractAllTo (ctx:RpsContext,opts:Object, zipFile:string, extractTo:string) : Promise<string>{
     let z = new AdmZip(zipFile);
     
@@ -74,7 +86,7 @@ export default class RPSAdmZip {
  * get-zip-entries "backup.zip"
  * @param {string} zipFile filename of the zip file.
  * @returns {Array} IZipEntry. The object format which includes the metadata.
- * @summary Get zip file entries information
+ * @summary get-zip-entries :: String → [IZipEntry]
  * 
  * @see {@link https://www.npmjs.com/package/adm-zip}
  * 

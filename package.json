@@ -1,7 +1,7 @@
 {
-  "name": "@typecasting/rpscript-api-adm-zip",
+  "name": "@typecasting/rpscript-api-zip",
   "version": "0.1.2",
-  "description": "RPScript API for adm-zip",
+  "description": "RPScript API for zip",
   "keywords": [
     "api",
     "rpa",
@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "adm-zip": "^0.4.11",
-    "rpscript-interface": "^0.6.1"
+    "rpscript-interface": "^0.6.2"
   },
   "devDependencies": {
     "@types/adm-zip": "^0.4.31",
