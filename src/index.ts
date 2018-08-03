@@ -11,7 +11,7 @@ import {RpsContext,RpsModule,rpsAction,R} from 'rpscript-interface';
  * 
  * 
 */
-@RpsModule("adm-zip")
+@RpsModule("zip")
 export default class RPSAdmZip {
 
 /**
