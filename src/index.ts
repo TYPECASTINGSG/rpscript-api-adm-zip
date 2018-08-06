@@ -19,7 +19,7 @@ export default class RPSAdmZip {
  * @memberof Zip
  * @example
  * ;Write to a file call back.zip, compress temp folder and readme.md file
- * compress-files "backup.zip" "./temp/" "./readme.md"
+ * compress "backup.zip" "./temp/" "./readme.md"
  * 
  * @param {string} zipFile name of the zip file
  * @param {List} entries the list of files or folders to be zipped
@@ -64,7 +64,7 @@ export default class RPSAdmZip {
  * @memberof Zip
  * @example
  * ;Extract the zip file to the folder temp
- * extract-zip "backup.zip" "./temp/"
+ * extract "backup.zip" "./temp/"
  * 
  * @param {string} zipFile filename of the zip file.
  * @param {string} extractTo directory to extract to.
