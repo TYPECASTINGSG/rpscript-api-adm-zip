@@ -26,7 +26,6 @@ export default class RPSAdmZip {
  * 
  * 
  * @summary compress :: String → ...String → String
- * @summary Zipping file by specifying the filename and the list of entries
  * 
  * 
 */
