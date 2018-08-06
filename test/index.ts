@@ -6,22 +6,17 @@ import { RpsContext } from 'rpscript-interface';
 
 m.describe('Adm Zip', () => {
 
-  m.it.skip('should zip and extract', async function () {
+  m.it('should zip and extract', async function () {
     let zip = new RPSAdmZip;
 
     let output = await zip.zip(new RpsContext,{},"test.zip","./src","./.vscode","./test/index.ts");
-    console.log(output);
+    expect(output).to.be.equals('test.zip');
 
     let fn:any = await zip.zip(new RpsContext,{},"test2.zip");
-    console.log(fn('./src','./.vscode'));
+    expect(fn('./src','./.vscode')).to.be.equals('test2.zip');
 
-    let entries = await zip.getZipEntries(new RpsContext,{},'test.zip');
-    console.log(entries);
-    entries = await zip.getZipEntries(new RpsContext,{},'test2.zip');
-    console.log(entries);
-
-    let extract = await zip.extractAllTo(new RpsContext,{},'test.zip','./temp/');
-    console.log(extract);
+    let extract:any = await zip.extractAllTo(new RpsContext,{},'test.zip');
+    expect(extract('./temp/')).to.be.equals('./temp/');
 
   }).timeout(0);
 
