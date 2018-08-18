@@ -1,2 +1,2 @@
-# RPScript API for adm-zip
-> API for adm-zip
+# RPScript API for compression and extraction.
+> API for zip

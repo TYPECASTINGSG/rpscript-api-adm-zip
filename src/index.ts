@@ -2,13 +2,12 @@ import fs from 'fs';
 import AdmZip, { IZipEntry } from 'adm-zip';
 import {RpsContext,RpsModule,rpsAction,R} from 'rpscript-interface';
 
-/** Zipping and extracting files
- * @see {@link https://www.npmjs.com/package/adm-zip|Zip}
+/** Compression and extracting module.
+ * 
  * @namespace Zip
  * 
  * @example
  * rps install zip
- * 
  * 
 */
 @RpsModule("zip")
@@ -18,12 +17,13 @@ export default class RPSAdmZip {
  * @function compress
  * @memberof Zip
  * @example
- * ;Write to a file call back.zip, compress temp folder and readme.md file
+ * ;Create to a file call back.zip, compress temp folder and readme.md file
  * compress "backup.zip" "./temp/" "./readme.md"
  * 
- * @param {string} zipFile name of the zip file
- * @param {List} entries the list of files or folders to be zipped
+ * @param {String} zipFile name of the zip file.
+ * @param {List} entries the list of files or folders to be zipped.
  * 
+ * @return {String} zip file name.
  * 
  * @summary compress :: String → ...String → String
  * 
@@ -65,8 +65,10 @@ export default class RPSAdmZip {
  * ;Extract the zip file to the folder temp
  * extract "backup.zip" "./temp/"
  * 
- * @param {string} zipFile filename of the zip file.
- * @param {string} extractTo directory to extract to.
+ * @param {String} zipFile filename of the zip file.
+ * @param {String} extractTo directory to extract to.
+ * 
+ * @return {String} extracted directory name.
  * 
  * @summary extract :: String → String → String
  * 
